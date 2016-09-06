@@ -38,7 +38,7 @@ So far, so good.
 >
 > This callback receives a response as its first argument and must return a list containing Item and/or Request objects (or any subclass of them).
 
-> __follow__ is a boolean which specifies if links should be followed from each response extracted with this rule. 
+> __[follow](http://doc.scrapy.org/en/latest/topics/spiders.html#crawling-rules)__ is a boolean which specifies if links should be followed from each response extracted with this rule. 
 >
 > __If callback is None__ follow defaults to __True__, otherwise it defaults to __False__.
 
@@ -73,7 +73,17 @@ or
 
 ### part 2: parse_item() function
 
+Important to know how xpath() works. Here are some key points:
 
+1. For absolute path, use "//"; for relative path, do not use "/"
+
+1. We can assign a section xpath to another xpath variable, eg
+
+    result = response.xpath('//div[@class="co_area2"]')
+
+1. xpath() can extract by class, id or by property
+
+    xpath('div[@class="co_content8"]/ul/div[@id="Zoom"]/p/img/@src').extract()
 
 ## pipelines.py
 
@@ -92,3 +102,16 @@ In the crawler class, do:
 Or
 
     scrapy crawl crawler_dygod -o output.json
+
+## deploy to scrapinghub
+
+We can deploy the crawlers to cloud and run on cloud.
+
+    shub login
+    shub deploy
+
+Acquire your __Target project ID__ from "Code & Deploys" Section of https://app.scrapinghub.com 
+
+After the deploy, use scrapinghub to run your crawler.
+
+Job Done! 
