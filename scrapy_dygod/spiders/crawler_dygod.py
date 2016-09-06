@@ -30,7 +30,7 @@ class CrawlerDygodSpider(CrawlSpider):
         result = response.xpath('//div[@class="co_area2"]')
 
         i['title'] = result.xpath('div[@class="title_all"]/h1/text()').extract()
-        # TODO: fix the image xpath
-        i['image'] = result.xpath('div[@class="co_content8"]/ul/div[@id="Zoom"]/p/img/@src').extract()
+        i['image'] = result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
+
         # i['download_link'] = result.xpath('//div[@id="description"]').extract()
         return i
