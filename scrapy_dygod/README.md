@@ -32,6 +32,8 @@ So far, so good.
 
 ## spider/crawler_dygod.py
 
+### part 1: crawling rules
+
 > __[callback](http://doc.scrapy.org/en/latest/topics/spiders.html#crawling-rules)__ is a callable or a string to be called for each link extracted with the specified link_extractor. 
 >
 > This callback receives a response as its first argument and must return a list containing Item and/or Request objects (or any subclass of them).
@@ -39,7 +41,7 @@ So far, so good.
 > __follow__ is a boolean which specifies if links should be followed from each response extracted with this rule. 
 >
 > __If callback is None__ follow defaults to __True__, otherwise it defaults to __False__.
-> 
+
 The most basic crawling rule I come up with is like this: 
 
     class CrawlerDygodSpider(CrawlSpider):
@@ -55,7 +57,23 @@ The most basic crawling rule I come up with is like this:
             Rule(LinkExtractor(allow='\/html\/gndy\/jddy\/\d+\/\d+\.html'), callback='parse_item', follow=True),
         )
 
-Now, we just need to implement parse_item() function.
+Now, we just need to implement parse_item() function. 
+
+At this stage, we are ready to test the crawler. However before doing so, one last step is to set a time gap of delay in settings.py
+
+    DOWNLOAD_DELAY = 3
+
+(otherwise you will received error like this:)
+
+    [<twisted.python.failure.Failure twisted.internet.error.ConnectionDone: Connection was closed cleanly.>]
+
+or 
+
+    Connection to the other side was lost in a non-clean fashion: Connection lost.
+
+### part 2: parse_item() function
+
+
 
 ## pipelines.py
 

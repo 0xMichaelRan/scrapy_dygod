@@ -28,7 +28,8 @@ class CrawlerDygodSpider(CrawlSpider):
 
         self.logger.info('now crawling item page: %s', response.url)
 
-        #i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
-        #i['name'] = response.xpath('//div[@id="name"]').extract()
-        #i['description'] = response.xpath('//div[@id="description"]').extract()
+        # TODO: change these xpath
+        i['title'] = response.xpath('//input[@id="sid"]/@value').extract()
+        i['image'] = response.xpath('//div[@id="name"]').extract()
+        i['download_link'] = response.xpath('//div[@id="description"]').extract()
         return i
