@@ -32,9 +32,30 @@ So far, so good.
 
 ## spider/crawler_dygod.py
 
-callback is a callable or a string (in which case a method from the spider object with that name will be used) to be called for each link extracted with the specified link_extractor. This callback receives a response as its first argument and must return a list containing Item and/or Request objects (or any subclass of them).
+> __[callback](http://doc.scrapy.org/en/latest/topics/spiders.html#crawling-rules)__ is a callable or a string to be called for each link extracted with the specified link_extractor. 
+>
+> This callback receives a response as its first argument and must return a list containing Item and/or Request objects (or any subclass of them).
 
-follow is a boolean which specifies if links should be followed from each response extracted with this rule. If callback is None follow defaults to True, otherwise it defaults to False.
+> __follow__ is a boolean which specifies if links should be followed from each response extracted with this rule. 
+>
+> __If callback is None__ follow defaults to __True__, otherwise it defaults to __False__.
+> 
+The most basic crawling rule I come up with is like this: 
+
+    class CrawlerDygodSpider(CrawlSpider):
+        name = 'crawler_dygod'
+        allowed_domains = ['www.dygod.net']
+        start_urls = ['http://www.dygod.net/html/gndy/oumei/index.html']
+        rules = (
+            # 欧美电影 item list
+            Rule(LinkExtractor(allow='\/html\/gndy\/oumei\/')),
+            # 精品电影 item page
+            Rule(LinkExtractor(allow='\/html\/gndy\/dyzz\/\d+\/\d+\.html'), callback='parse_item', follow=True),
+            # 综合电影 item page
+            Rule(LinkExtractor(allow='\/html\/gndy\/jddy\/\d+\/\d+\.html'), callback='parse_item', follow=True),
+        )
+
+Now, we just need to implement parse_item() function.
 
 ## pipelines.py
 
