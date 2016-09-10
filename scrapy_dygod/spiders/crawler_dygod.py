@@ -34,4 +34,6 @@ class CrawlerDygodSpider(CrawlSpider):
 
         # TODO: extract download_link
         # i['download_link'] = result.xpath('//div[@id="description"]').extract()
+        
+        # TODO: add response.url as a field
         return i
