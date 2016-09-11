@@ -24,14 +24,14 @@ class CrawlerDygodSpider(CrawlSpider):
         self.logger.info('now crawling item page: %s', response.url)
         result = response.xpath('//div[@class="co_area2"]')
 
+        i['url'] = response.url
         i['title'] = result.xpath('div[@class="title_all"]/h1/text()').extract()
         i['image'] = result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
 
         # TODO: extract download_link
         # i['download_link'] = result.xpath('//div[@id="description"]').extract()
-        
+
         # TODO: crawl the IMDB score and save it into the item
         i['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
 
-        # TODO: add response.url as a field
         return i

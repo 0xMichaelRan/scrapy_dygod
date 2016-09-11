@@ -13,5 +13,5 @@ class ScrapyDygodItem(scrapy.Item):
     image = scrapy.Field()
     download_link = scrapy.Field()
     imdb_score = scrapy.Field()
-    
+
     pass
