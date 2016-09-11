@@ -22,9 +22,9 @@ class ScrapyDygodPipeline(object):
 
     def process_item(self, item, spider):
         self.collection.update(
-            {'key': item['title']},
+            {'key': item['url']},
             dict(item), upsert=True
         )
-        print "This item is added to MongoDB database!"
+        print "This item is added to MongoDB: " + item['url']
 
         return item
