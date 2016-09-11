@@ -29,6 +29,9 @@ class CrawlerDygodSpider(CrawlSpider):
 
         # TODO: extract download_link
         # i['download_link'] = result.xpath('//div[@id="description"]').extract()
+        
+        # TODO: crawl the IMDB score and save it into the item
+        i['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
 
         # TODO: add response.url as a field
         return i
