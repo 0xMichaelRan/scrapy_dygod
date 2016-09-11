@@ -87,7 +87,16 @@ Important to know how xpath() works. Here are some key points:
 
 ## pipelines.py
 
-# Useful for debugging
+# Useful stuff
+
+## Learn xpath by examples
+
+    result.xpath('//div[@class="items"]/div/div')
+    result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
+    result.xpath('span[@class="pl_lst_rt"]/text()').extract()[0]
+    result.xpath('img/@src').extract()[0])
+    result.xpath('a/@href').extract()[0]
+    result.xpath('div[2]/a/text()').extract()
 
 ## log to command line
 
