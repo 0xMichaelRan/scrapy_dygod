@@ -12,4 +12,5 @@ class ScrapyDygodItem(scrapy.Item):
     title = scrapy.Field()
     image = scrapy.Field()
     download_link = scrapy.Field()
+    
     pass
