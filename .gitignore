@@ -4,3 +4,5 @@
 build
 setup.py
 
+# local setting
+settings_local.py
