@@ -35,7 +35,7 @@ class CrawlerDygodSpider(CrawlSpider):
         # append the movie screenshot images
         item['images'].extend(result.xpath('//div[@id="Zoom"]/div/img/@src').extract())
 
-        if (item['images'] and len(item['images']) > 0):
+        if ('images' in item and len(item['images']) > 0):
             item['poster_image']=item['images'][0]
         else:
             self.logger.info('There is no image for this item: ' + item['url'])

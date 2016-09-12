@@ -111,9 +111,18 @@ If not in the crawler class, define your own logger:
 
     logger.warning("Item dropped because no title: " + item['url'])
 
+## Suppress item logging
+
+Set LOG_LEVEL = 'INFO' if you wish to suppress item content logging in console
+
+    # CRITICAL, ERROR, WARNING, INFO, DEBUG
+    LOG_LEVEL = 'INFO'
+
 ## scrapy parse command
 
-    scrapy parse --spider=crawler_dygod -c parse_item http://www.dygod.net/html/gndy/jddy/20130718/42744.html
+We can use command line to debug: 
+
+    scrapy parse --spider=crawler_dygod -c parse_item --pipelines http://www.dygod.net/html/gndy/jddy/20130718/42744.html
 
 in the format of
 

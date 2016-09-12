@@ -92,8 +92,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Set LOG_LEVEL = 'INFO' if you wish to suppress item content logging in console
-# LOG_LEVEL = 'INFO'
 
 from settings_local import *
 # MONGODB_SERVER = "localhost"
