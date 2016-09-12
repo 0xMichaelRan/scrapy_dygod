@@ -104,6 +104,41 @@ In the crawler class, do:
 
     self.logger.info('now crawling item page: %s', response.url)
 
+If not in the crawler class, define your own logger:
+
+    import logging
+    logger = logging.getLogger('pipeline')
+
+    logger.warning("Item dropped because no title: " + item['url'])
+
+## scrapy parse command
+
+    scrapy parse --spider=crawler_dygod -c parse_item http://www.dygod.net/html/gndy/jddy/20130718/42744.html
+
+in the format of
+
+    =====
+      scrapy parse [options] <url>
+
+    Parse URL (using its spider) and print the results
+
+    Options
+    =======
+    --help, -h              show this help message and exit
+    --spider=SPIDER         use this spider without looking for one
+    -a NAME=VALUE           set spider argument (may be repeated)
+    --pipelines             process items through pipelines
+    --nolinks               don't show links to follow (extracted requests)
+    --noitems               don't show scraped items
+    --nocolour              avoid using pygments to colorize the output
+    --rules, -r             use CrawlSpider rules to discover the callback
+    --callback=CALLBACK, -c CALLBACK
+                            use this callback for parsing, instead looking for a
+                            callback
+    --depth=DEPTH, -d DEPTH
+                            maximum depth for parsing requests [default: 1]
+    --verbose, -v           print each depth level one by one
+
 ## the .gitignore file
 
 Reference: [scrapy-example-project](https://github.com/mattes/scrapy-example-project/blob/master/.gitignore):

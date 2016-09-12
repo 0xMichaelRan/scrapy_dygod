@@ -27,8 +27,16 @@ class CrawlerDygodSpider(CrawlSpider):
 
         item['url'] = response.url
         item['title'] = result.xpath('div[@class="title_all"]/h1/text()').extract()
+
+        # the default image (first is poster)
         item['images'] = result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
-        item['poster_image']=item['images'][0]
+        # some older version of web page have this as poster
+        item['images'].extend(result.xpath('//div[@id="Zoom"]/tr/td/p/img/@src').extract())
+        # append the movie screenshot images
+        item['images'].extend(result.xpath('//div[@id="Zoom"]/div/img/@src').extract())
+
+        # if (item['images'] != null and len(item['images']) > 0)
+        #     item['poster_image']=item['images'][0]
 
         # TODO: extract download_link
         # item['download_link'] = result.xpath('//div[@id="description"]').extract()
