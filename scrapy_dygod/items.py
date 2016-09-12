@@ -17,7 +17,7 @@ class ScrapyDygodItem(scrapy.Item):
     # item fields to be crawled
     url = scrapy.Field()
     title = scrapy.Field()
-    image = scrapy.Field()
+    images = scrapy.Field()
     download_link = scrapy.Field()
     raw_content = scrapy.Field()
 
