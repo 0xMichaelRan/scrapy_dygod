@@ -36,7 +36,7 @@ class CrawlerDygodSpider(CrawlSpider):
         item['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
 
         for line in item['raw_content']:
-            if 'imdb' in s.lower():
+            if 'imdb' in line.lower():
                 item['imdb_score'] = line
                 break
         # TODO: crawl the IMDB score and save it into the item
