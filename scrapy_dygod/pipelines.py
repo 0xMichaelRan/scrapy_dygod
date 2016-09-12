@@ -6,6 +6,8 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymongo
+import datetime
+import time
 
 from scrapy.conf import settings
 
@@ -21,6 +23,11 @@ class ScrapyDygodPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
+
+        # set current timestamp
+        ts = time.time()
+        item['update_time'] = (datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'))
+
         self.collection.update(
             {'key': item['url']},
             dict(item), upsert=True
