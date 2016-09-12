@@ -2,6 +2,7 @@
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
+from scrapy_dygod.items import ScrapyDygodItem
 
 
 class CrawlerDygodSpider(CrawlSpider):
@@ -19,7 +20,7 @@ class CrawlerDygodSpider(CrawlSpider):
     )
 
     def parse_item(self, response):
-        i = {}
+        i = ScrapyDygodItem()
 
         self.logger.info('now crawling item page: %s', response.url)
         result = response.xpath('//div[@class="co_area2"]')
@@ -31,7 +32,7 @@ class CrawlerDygodSpider(CrawlSpider):
         # TODO: extract download_link
         # i['download_link'] = result.xpath('//div[@id="description"]').extract()
 
-        # TODO: crawl the IMDB score and save it into the item
         i['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
+        # TODO: crawl the IMDB score and save it into the item
 
         return i

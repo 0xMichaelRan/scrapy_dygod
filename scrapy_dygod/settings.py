@@ -72,7 +72,8 @@ DOWNLOAD_DELAY = 1
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     # lower valued = higher priority. 0-1000 range
-    'scrapy_dygod.pipelines.AddCommonFieldsPipeline': 300,
+    'scrapy_dygod.pipelines.CleanDataPipeline': 200,
+    'scrapy_dygod.pipelines.CommonFieldsPipeline': 600,
     'scrapy_dygod.pipelines.MongodbPipeline': 900,
 }
 
@@ -96,3 +97,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Set LOG_LEVEL = 'INFO' if you wish to suppress item content logging in console
+# LOG_LEVEL = 'INFO'

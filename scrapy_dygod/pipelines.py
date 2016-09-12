@@ -5,21 +5,33 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-import pymongo
+import logging
+logger = logging.getLogger('pipeline')
+
 import datetime
 import time
+import pymongo
 
 from scrapy.conf import settings
 
 
-class AddCommonFieldsPipeline(object):
+class CleanDataPipeline(object):
+
+    def process_item(self, item, spider):
+        item['title'] = item['title'][0];
+
+        logger.info("Data has been cleaned for this item: " + item['title'])
+        return item
+
+
+class CommonFieldsPipeline(object):
 
     def process_item(self, item, spider):
         # set current timestamp
         ts = time.time()
         item['update_time'] = (datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'))
 
-        print "This item is been added common fields. "
+        logger.info("This item is been added common fields. ")
         return item
 
 
@@ -39,5 +51,5 @@ class MongodbPipeline(object):
             dict(item), upsert=True
         )
 
-        print "This item is added to MongoDB: " + item['url']
+        logger.info("This item is upsert-ed to MongoDB: " + item['url'])
         return item
