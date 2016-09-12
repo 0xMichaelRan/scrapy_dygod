@@ -47,7 +47,7 @@ class MongodbPipeline(object):
 
     def process_item(self, item, spider):
         self.collection.update(
-            {'key': item['url']},
+            {'url': item['url']},
             dict(item), upsert=True
         )
 

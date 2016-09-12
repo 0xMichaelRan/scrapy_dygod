@@ -20,19 +20,19 @@ class CrawlerDygodSpider(CrawlSpider):
     )
 
     def parse_item(self, response):
-        i = ScrapyDygodItem()
+        item = ScrapyDygodItem()
 
         self.logger.info('now crawling item page: %s', response.url)
         result = response.xpath('//div[@class="co_area2"]')
 
-        i['url'] = response.url
-        i['title'] = result.xpath('div[@class="title_all"]/h1/text()').extract()
-        i['image'] = result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
+        item['url'] = response.url
+        item['title'] = result.xpath('div[@class="title_all"]/h1/text()').extract()
+        item['image'] = result.xpath('//div[@id="Zoom"]/p/img/@src').extract()
 
         # TODO: extract download_link
-        # i['download_link'] = result.xpath('//div[@id="description"]').extract()
+        # item['download_link'] = result.xpath('//div[@id="description"]').extract()
 
-        i['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
+        item['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
         # TODO: crawl the IMDB score and save it into the item
 
         return i
