@@ -18,6 +18,7 @@ class ScrapyDygodItem(scrapy.Item):
     url = scrapy.Field()
     title = scrapy.Field()
     images = scrapy.Field()
+    poster_image = scrapy.Field()
     download_link = scrapy.Field()
     raw_content = scrapy.Field()
 
