@@ -40,20 +40,22 @@ class CrawlerDygodSpider(CrawlSpider):
         else:
             self.logger.info('There is no image for this item: ' + item['url'])
 
-        # TODO: extract download_link
+        # TODO T3T2: extract download_link
         # item['download_link'] = result.xpath('//div[@id="description"]').extract()
 
         item['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
 
+        # TODO TDWA: get release_date from raw_content
+        # get IMDB score
         for line in item['raw_content']:
             if 'imdb' in line.lower():
                 item['imdb_score'] = line
                 break
-        # TODO: crawl the IMDB score and save it into the item
 
+        # get Douban score
         for line in item['raw_content']:
             if '豆瓣评分' in line.encode("utf-8"):
                 item['douban_score'] = line
-                break     
+                break
 
         return item
