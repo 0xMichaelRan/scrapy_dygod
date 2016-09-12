@@ -12,8 +12,8 @@
 from settings_local import *
 # MONGODB_SERVER = "localhost"
 # MONGODB_PORT = 27017
-# MONGODB_DB = "scrapy_dygod"
-# MONGODB_COLLECTION = "table"
+# MONGODB_DB = "mongo_db"
+# MONGODB_COLLECTION = "collection_name"
 
 BOT_NAME = 'scrapy_dygod'
 
@@ -71,7 +71,9 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrapy_dygod.pipelines.ScrapyDygodPipeline': 300,
+    # lower valued = higher priority. 0-1000 range
+    'scrapy_dygod.pipelines.AddCommonFieldsPipeline': 300,
+    'scrapy_dygod.pipelines.MongodbPipeline': 900,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

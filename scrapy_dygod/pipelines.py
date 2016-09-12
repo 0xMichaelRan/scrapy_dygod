@@ -12,7 +12,18 @@ import time
 from scrapy.conf import settings
 
 
-class ScrapyDygodPipeline(object):
+class AddCommonFieldsPipeline(object):
+
+    def process_item(self, item, spider):
+        # set current timestamp
+        ts = time.time()
+        item['update_time'] = (datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'))
+
+        print "This item is been added common fields. "
+        return item
+
+
+class MongodbPipeline(object):
 
     def __init__(self):
         connection = pymongo.MongoClient(
@@ -23,15 +34,10 @@ class ScrapyDygodPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
-
-        # set current timestamp
-        ts = time.time()
-        item['update_time'] = (datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'))
-
         self.collection.update(
             {'key': item['url']},
             dict(item), upsert=True
         )
-        print "This item is added to MongoDB: " + item['url']
 
+        print "This item is added to MongoDB: " + item['url']
         return item
