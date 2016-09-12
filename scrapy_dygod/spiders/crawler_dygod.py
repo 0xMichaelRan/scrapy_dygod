@@ -35,4 +35,4 @@ class CrawlerDygodSpider(CrawlSpider):
         item['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
         # TODO: crawl the IMDB score and save it into the item
 
-        return i
+        return item
