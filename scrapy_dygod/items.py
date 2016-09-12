@@ -20,6 +20,7 @@ class ScrapyDygodItem(scrapy.Item):
     images = scrapy.Field()
     poster_image = scrapy.Field()
     download_link = scrapy.Field()
+    imdb_score = scrapy.Field()
     raw_content = scrapy.Field()
 
     def __repr__(self):
