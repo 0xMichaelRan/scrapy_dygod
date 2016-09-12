@@ -13,11 +13,17 @@ import time
 import pymongo
 
 from scrapy.conf import settings
+from scrapy.exceptions import DropItem
 
 
 class CleanDataPipeline(object):
 
     def process_item(self, item, spider):
+
+        # if title is empty, discard item
+        if not item or len(item['title']) == 0:
+            logger.warning("Item dropped because no title: " + item['url'])
+            raise DropItem("Missing title, %s" % item)
         item['title'] = item['title'][0];
 
         logger.info("Data has been cleaned for this item: " + item['title'])
