@@ -49,4 +49,9 @@ class CrawlerDygodSpider(CrawlSpider):
                 break
         # TODO: crawl the IMDB score and save it into the item
 
+        for line in item['raw_content']:
+            if '豆瓣评分' in line.encode("utf-8"):
+                item['douban_score'] = line
+                break     
+
         return item
