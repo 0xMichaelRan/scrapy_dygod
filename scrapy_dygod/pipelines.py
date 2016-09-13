@@ -64,13 +64,16 @@ class CleanDataPipeline(object):
         if ('images' in item and len(item['images']) > 0):
             item['poster_image']=item['images'][0]
         else:
-            self.logger.info('There is no image for this item: ' + item['url'])
+            logger.info('There is no image for this item: ' + item['url'])
 
         # TODO TDWA: get release_date from raw_content
 
         # finish the clean data pipeline
         logger.info("Data has been cleaned for this item: " + item['title'])
         return item
+
+
+# TODO T82R check image url validity
 
 
 class CommonFieldsPipeline(object):
@@ -87,18 +90,20 @@ class CommonFieldsPipeline(object):
 class MongodbPipeline(object):
 
     def __init__(self):
-        connection = pymongo.MongoClient(
-            settings['MONGODB_SERVER'],
-            settings['MONGODB_PORT']
-        )
-        db = connection[settings['MONGODB_DB']]
-        self.collection = db[settings['MONGODB_COLLECTION']]
+        if (settings['SAVE_TO_MONGODB']):
+            connection = pymongo.MongoClient(
+                settings['MONGODB_SERVER'],
+                settings['MONGODB_PORT']
+            )
+            db = connection[settings['MONGODB_DB']]
+            self.collection = db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
-        self.collection.update(
-            {'url': item['url']},
-            dict(item), upsert=True
-        )
+        if (settings['SAVE_TO_MONGODB']):
+            self.collection.update(
+                {'url': item['url']},
+                dict(item), upsert=True
+            )
 
-        logger.info("This item is upsert-ed to MongoDB: " + item['url'])
-        return item
+            logger.info("This item is upsert-ed to MongoDB: " + item['url'])
+            return item

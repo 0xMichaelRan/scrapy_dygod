@@ -93,6 +93,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
+SAVE_TO_MONGODB = 1
+
 from settings_local import *
 # MONGODB_SERVER = "localhost"
 # MONGODB_PORT = 27017

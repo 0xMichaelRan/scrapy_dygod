@@ -34,6 +34,8 @@ class CrawlerDygodSpider(CrawlSpider):
         item['images'].extend(result.xpath('//div[@id="Zoom"]/tr/td/p/img/@src').extract())
         # append the movie screenshot images
         item['images'].extend(result.xpath('//div[@id="Zoom"]/div/img/@src').extract())
+        # there is still 30% of item pages without any images,
+        # we might wish to discard these items
 
         # TODO T3T2: extract download_link
         # item['download_link'] = result.xpath('//div[@id="description"]').extract()
