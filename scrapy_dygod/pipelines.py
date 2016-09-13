@@ -33,6 +33,10 @@ class CleanDataPipeline(object):
         item['title'] = item['title'][0];
 
         # get clean imdb_score
+        for line in item['raw_content']:
+            if 'imdb' in line.lower():
+                item['imdb_score'] = line
+                break
         # "imdb_score": "◎IMDB评分　5.4/10 from 952 users"
         if ('imdb_score' in item):
             imdb_score_raw = item['imdb_score'].encode("utf-8")
@@ -43,6 +47,10 @@ class CleanDataPipeline(object):
             logger.warning('IMDB score is not available. ' + item['url'])
 
         # get clean douban_score
+        for line in item['raw_content']:
+            if '豆瓣评分' in line.encode("utf-8"):
+                item['douban_score'] = line
+                break
         # "douban_score": "◎豆瓣评分　7.5/10 from 24126 users"
         if ('douban_score' in item):
             douban_score_raw = item['douban_score'].encode("utf-8")
@@ -51,6 +59,14 @@ class CleanDataPipeline(object):
                 item['douban_score'] = matchObj3.group(1)
         else:
             logger.warning('Douban score is not available. ' + item['url'])
+
+        # get poster_image from raw_content
+        if ('images' in item and len(item['images']) > 0):
+            item['poster_image']=item['images'][0]
+        else:
+            self.logger.info('There is no image for this item: ' + item['url'])
+
+        # TODO TDWA: get release_date from raw_content
 
         # finish the clean data pipeline
         logger.info("Data has been cleaned for this item: " + item['title'])

@@ -18,11 +18,13 @@ class ScrapyDygodItem(scrapy.Item):
     url = scrapy.Field()
     title = scrapy.Field()
     images = scrapy.Field()
-    poster_image = scrapy.Field()
     download_link = scrapy.Field()
+    raw_content = scrapy.Field()
+
+    # item fields to be derived
+    poster_image = scrapy.Field()
     imdb_score = scrapy.Field()
     douban_score = scrapy.Field()
-    raw_content = scrapy.Field()
 
     def __repr__(self):
         r = {}
