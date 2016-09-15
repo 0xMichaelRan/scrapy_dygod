@@ -67,6 +67,7 @@ DOWNLOAD_DELAY = 1
 ITEM_PIPELINES = {
     # lower valued = higher priority. 0-1000 range
     'scrapy_dygod.pipelines.CleanDataPipeline': 200,
+    'scrapy_dygod.pipelines.CheckValidityPipeline': 300,
     'scrapy_dygod.pipelines.CommonFieldsPipeline': 600,
     'scrapy_dygod.pipelines.MongodbPipeline': 900,
 }

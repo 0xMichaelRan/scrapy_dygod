@@ -74,6 +74,11 @@ class CleanDataPipeline(object):
 
 
 # TODO T82R check image url validity
+class CheckValidityPipeline(object):
+
+    def process_item(self, item, spider):
+        logger.info("Validity check is finished: " + item['title'])
+        return item
 
 
 class CommonFieldsPipeline(object):

@@ -26,6 +26,7 @@ class ScrapyDygodItem(scrapy.Item):
     imdb_score = scrapy.Field()
     douban_score = scrapy.Field()
 
+    # override this, so that I get more pretty print of items crawled
     def __repr__(self):
         r = {}
         # I wish to exclude 'raw_content' from the item debug logging
