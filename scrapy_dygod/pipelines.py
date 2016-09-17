@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
 # CleanDataPipeline
 from scrapy.exceptions import DropItem
 import re
@@ -32,16 +27,21 @@ class CleanDataPipeline(object):
             raise DropItem("Missing title, %s" % item)
         item['title'] = item['title'][0];
 
-        # get clean imdb_score
+        # get clean imdb_score, naive match
         for line in item['raw_content']:
-            if 'imdb' in line.lower():
+            if 'imdb' in line.lower() and 'user' in line.lower():
                 item['imdb_score'] = line
                 break
-        # "imdb_score": "◎IMDB评分　5.4/10 from 952 users"
+        # get clean imdb_score, regex match
         if ('imdb_score' in item):
             imdb_score_raw = item['imdb_score'].encode("utf-8")
-            matchObj2 = re.match( r'.*(\d+.\d+)\/\d+', imdb_score_raw, re.M|re.I)
-            if matchObj2:
+            matchObj1 = re.match( r'.*(\d+.\d+)\/\d+', imdb_score_raw, re.M|re.I)
+            matchObj2 = re.match( r'.*(\d+)\/\d+', imdb_score_raw, re.M|re.I)
+            if matchObj1:
+                # for the case "◎IMDB评分　5.4/10 from 952 users"
+                item['imdb_score'] = matchObj1.group(1)
+            elif matchObj2:
+                # for the case "◎IMDb评分  0/10 from 0 users"
                 item['imdb_score'] = matchObj2.group(1)
         else:
             logger.warning('IMDB score is not available. ' + item['url'])

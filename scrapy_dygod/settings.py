@@ -96,6 +96,7 @@ ITEM_PIPELINES = {
 
 SAVE_TO_MONGODB = 1
 
+# put here so that settings_local.py overrides settings.py
 from settings_local import *
 # MONGODB_SERVER = "localhost"
 # MONGODB_PORT = 27017
