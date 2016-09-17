@@ -59,6 +59,11 @@ class CleanDataPipeline(object):
                 item['douban_score'] = matchObj3.group(1)
         else:
             logger.warning('Douban score is not available. ' + item['url'])
+        # get clean release_date
+        for line in item['raw_content']:
+            if '上映日期' in line.encode("utf-8"):
+                item['release_date'] = line
+                break
 
         # get poster_image from raw_content
         if ('images' in item and len(item['images']) > 0):
@@ -111,4 +116,6 @@ class MongodbPipeline(object):
             )
 
             logger.info("This item is upsert-ed to MongoDB: " + item['url'])
+            return item
+        else:
             return item

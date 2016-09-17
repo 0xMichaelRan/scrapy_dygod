@@ -20,6 +20,7 @@ class ScrapyDygodItem(scrapy.Item):
     poster_image = scrapy.Field()
     imdb_score = scrapy.Field()
     douban_score = scrapy.Field()
+    release_date = scrapy.Field()
 
     # override this, so that I get more pretty print of items crawled
     def __repr__(self):
