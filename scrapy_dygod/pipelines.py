@@ -68,10 +68,9 @@ class CleanDataPipeline(object):
         # "release_date": "发布时间：2016-08-31"
         if ('release_date' in item):
             release_date_raw = item['release_date'].encode("utf-8")
-            # TODO fix this regex statement
-            matchObj3 = re.match( r'.*(\d+.\d+)\/\d+', release_date_raw, re.M|re.I)
-            if matchObj3:
-                item['release_date'] = matchObj3.group(1)
+            matchObj4 = re.match( r'：.*(\d+-\d+-\d+)', release_date_raw, re.M|re.I)
+            if matchObj4:
+                item['release_date'] = matchObj4.group(1)
         else:
             logger.warning('Release date is not available. ' + item['url'])
 
