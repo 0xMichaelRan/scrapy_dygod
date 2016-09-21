@@ -61,10 +61,11 @@ class CleanDataPipeline(object):
             logger.warning('Douban score is not available. ' + item['url'])
 
         # get clean release_date
-        for line in item['raw_content']:
-            if '上映日期' in line.encode("utf-8"):
-                item['release_date'] = line
-                break
+        #for line in item['raw_content']:
+        #    if '上映日期' in line.encode("utf-8"):
+        #        item['release_date'] = line
+        #        break
+        
         # "release_date": "发布时间：2016-08-31"
         if ('release_date' in item):
             release_date_raw = item['release_date'].encode("utf-8")

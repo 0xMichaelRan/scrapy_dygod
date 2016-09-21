@@ -41,6 +41,6 @@ class CrawlerDygodSpider(CrawlSpider):
         # item['download_link'] = result.xpath('//div[@id="description"]').extract()
 
         item['raw_content'] = result.xpath('//div[@id="Zoom"]/p/text()').extract()
-        item['release_date'] = result.xpath('//div[@class="co_content8"]/ul/text()').extract()
+        item['release_date'] = result.xpath('//div[@class="co_content8"]/ul/text()')[0].extract()
 
         return item
